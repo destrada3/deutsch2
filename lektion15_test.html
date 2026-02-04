@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lektion 15 - Test Interaktivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --gold: #fbbf24;
+            --success: #10b981;
+            --error: #ef4444;
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: #f8fafc;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section-number {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .section-title {
+            font-size: 1.3em;
+            color: #2d3748;
+            font-weight: 600;
+        }
+
+        .word-bank {
+            background: #e0e7ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px dashed var(--primary);
+        }
+
+        .word-bank-title {
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 0.95em;
+        }
+
+        .word-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .word-item {
+            background: white;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            color: #4338ca;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            cursor: help;
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            transition: all 0.3s;
+        }
+
+        .question:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            line-height: 1.8;
+            color: #2d3748;
+        }
+
+        input[type="text"], input[type="radio"] {
+            margin: 0 5px;
+        }
+
+        input[type="text"] {
+            border: none;
+            border-bottom: 2px solid #cbd5e0;
+            padding: 5px 10px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: all 0.3s;
+            min-width: 150px;
+            background: #f7fafc;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-bottom-color: var(--primary);
+            background: #e0e7ff;
+            transform: scale(1.02);
+        }
+
+        input.correct {
+            border-bottom-color: var(--success) !important;
+            background: #d1fae5 !important;
+        }
+
+        input.incorrect {
+            border-bottom-color: var(--error) !important;
+            background: #fee2e2 !important;
+        }
+
+        .radio-group {
+            display: inline-flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .radio-option {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid #cbd5e0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1em;
+            resize: vertical;
+            transition: all 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #f7fafc;
+        }
+
+        .email-blank {
+            display: inline-block;
+            min-width: 200px;
+            border-bottom: 2px solid #cbd5e0;
+            padding: 5px;
+            margin: 0 5px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.1em;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .results {
+            margin-top: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-radius: 15px;
+            display: none;
+            border: 3px solid var(--primary);
+        }
+
+        .results.show {
+            display: block;
+        }
+
+        .score {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .custom-tooltip {
+            position: fixed;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.95em;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            max-width: 200px;
+            text-align: center;
+            display: none;
+            border: 2px solid rgba(255,255,255,0.3);
+            white-space: nowrap;
+        }
+
+        .custom-tooltip::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 8px solid #764ba2;
+        }
+
+        @media (max-width: 768px) {
+            .custom-tooltip {
+                max-width: 70vw;
+                font-size: 0.9em;
+                padding: 6px 12px;
+                left: 50% !important;
+                transform: translateX(-50%) !important;
+                top: 10px !important;
+            }
+            
+            .custom-tooltip::before {
+                display: none;
+            }
+        }
+
+        .draggable-item {
+            background: white;
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-weight: 500;
+            color: #4338ca;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: move;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .draggable-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+            border-color: var(--primary);
+        }
+
+        .draggable-item.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .drag-handle {
+            color: #94a3b8;
+            font-size: 1.2em;
+            cursor: grab;
+        }
+
+        .drag-handle:active {
+            cursor: grabbing;
+        }
+
+        .drop-zone {
+            display: inline-block;
+            min-width: 250px;
+            min-height: 45px;
+            padding: 10px 15px;
+            margin: 5px;
+            border: 2px dashed #cbd5e0;
+            border-radius: 10px;
+            background: #f7fafc;
+            transition: all 0.3s;
+            vertical-align: middle;
+        }
+
+        .drop-zone.drag-over {
+            border-color: var(--primary);
+            background: #e0e7ff;
+            transform: scale(1.05);
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .drop-zone.filled {
+            border-color: var(--primary);
+            border-style: solid;
+            background: white;
+        }
+
+        .drop-zone.correct {
+            border-color: var(--success);
+            background: #d1fae5;
+        }
+
+        .drop-zone.incorrect {
+            border-color: var(--error);
+            background: #fee2e2;
+        }
+
+        .drop-placeholder {
+            color: #94a3b8;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+
+        .dropped-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4338ca;
+            font-weight: 500;
+        }
+
+        .remove-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8em;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .remove-btn:hover {
+            background: #dc2626;
+            transform: scale(1.1);
+        }
+
+        .points {
+            float: right;
+            color: var(--warning);
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        footer {
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📝 Lektion 15 - TEST</h1>
+            <p>Preparatoria TecMilenio | Prof. Daniel</p>
+        </header>
+
+        <div class="content">
+            <!-- SECCIÓN 1: Wörter -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">1</div>
+                    <div class="section-title">In der Stadt. Ordnen und ergänzen Sie die Wörter mit Artikel.</div>
+                </div>
+                <span class="points">_ / 10 PUNKTE</span>
+
+                <div class="word-bank">
+                    <div class="word-bank-title">Wörter:</div>
+                    <div class="word-items">
+                        <span class="word-item" title="ES: parque">RPKA</span>
+                        <span class="word-item" title="ES: jardín de niños">AINDTRKNEERG</span>
+                        <span class="word-item" title="ES: biblioteca">THIBLIBOEK</span>
+                        <span class="word-item" title="ES: tienda / negocio">HEFTSGCA</span>
+                        <span class="word-item" title="ES: albergue juvenil">HERJUGBEENDRGE</span>
+                        <span class="word-item" title="ES: torre">RUTM</span>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">
+                        a) Hier kann man Kleidung einkaufen. 
+                        <input type="text" class="answer-input" data-ans="das geschäft" data-help="💡 tienda / negocio" autocomplete="off" placeholder="..." title="👆 Clic para ver la palabra en español">
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">
+                        b) Hier lernen und spielen kleine Kinder von Montag bis Freitag. 
+                        <input type="text" class="answer-input" data-ans="der kindergarten" data-help="💡 jardín de niños" autocomplete="off" placeholder="..." title="👆 Clic para ver la palabra en español">
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">
+                        c) Hier kann man schlafen, es ist günstig. 
+                        <input type="text" class="answer-input" data-ans="die jugendherberge" data-help="💡 albergue juvenil" autocomplete="off" placeholder="..." title="👆 Clic para ver la palabra en español">
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">
+                        d) Hier gibt es sehr viele Treppen. 
+                        <input type="text" class="answer-input" data-ans="der turm" data-help="💡 torre" autocomplete="off" placeholder="..." title="👆 Clic para ver la palabra en español">
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">
+                        e) Hier kann man Bücher lesen, aber nicht kaufen. 
+                        <input type="text" class="answer-input" data-ans="die bibliothek" data-help="💡 biblioteca" autocomplete="off" placeholder="..." title="👆 Clic para ver la palabra en español">
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">
+                        f) Hier ist es grün und es gibt viele Bäume. 
+                        <input type="text" class="answer-input" data-ans="der park" data-help="💡 parque" autocomplete="off" placeholder="..." title="👆 Clic para ver la palabra en español">
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 2: Strukturen -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">2</div>
+                    <div class="section-title">Wie heißen die Personalpronomen? Kreuzen Sie an.</div>
+                </div>
+                <span class="points">_ / 5 PUNKTE</span>
+
+                <div class="question">
+                    <div class="question-text">
+                        a) Daniel und Julia, wie findet ihr Berlin? – Super, es gefällt 
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="q2a" value="uns" data-correct="true"> uns
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="q2a" value="ihnen"> Ihnen
+                            </label>
+                        </div>
+                        wirklich gut hier.
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">
+                        b) Das Auto ist ja toll. Gehört es 
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="q2b" value="dir" data-correct="true"> dir
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="q2b" value="ihnen"> ihnen
+                            </label>
+                        </div>
+                        ? – Leider nicht, es gehört meinem Chef.
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">
+                        c) Kann ich 
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="q2c" value="ihm"> ihm
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="q2c" value="ihnen" data-correct="true"> Ihnen
+                            </label>
+                        </div>
+                        helfen, Herr Thalmann? – Ja bitte, meine Tasche ist so schwer.
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">
+                        d) Emma und ich haben für Sie eingekauft, Frau Roth. – Das ist aber nett. Ich danke 
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="q2d" value="uns"> uns
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="q2d" value="euch" data-correct="true"> euch
+                            </label>
+                        </div>.
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">
+                        e) Wie findet dein Sohn die neue Firma? – Es gefällt 
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="q2e" value="ihm" data-correct="true"> ihm
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="q2e" value="ihr"> ihr
+                            </label>
+                        </div>
+                        sehr gut dort.
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text">
+                        f) Kannst du 
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="q2f" value="euch"> euch
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="q2f" value="mir" data-correct="true"> mir
+                            </label>
+                        </div>
+                        bei der Aufgabe helfen? – Ja Max, ich komme gleich.
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECCIÓN 3: Kommunikation -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">3</div>
+                    <div class="section-title">Ergänzen Sie die E-Mail.</div>
+                </div>
+                <span class="points">_ / 5 PUNKTE</span>
+
+                <div class="word-bank" id="dragBank">
+                    <div class="word-bank-title">📦 Arrastra las frases al lugar correcto:</div>
+                    <div class="word-items" style="display: flex; flex-direction: column; gap: 10px;">
+                        <div class="draggable-item" draggable="true" data-id="phrase1" data-correct="e">
+                            <span class="drag-handle">⋮⋮</span>
+                            Hier gibt es viele
+                        </div>
+                        <div class="draggable-item" draggable="true" data-id="phrase2" data-correct="d">
+                            <span class="drag-handle">⋮⋮</span>
+                            das ist nicht so toll
+                        </div>
+                        <div class="draggable-item" draggable="true" data-id="phrase3" data-correct="b">
+                            <span class="drag-handle">⋮⋮</span>
+                            gefällt mir gut
+                        </div>
+                        <div class="draggable-item" draggable="true" data-id="phrase4" data-correct="a">
+                            <span class="drag-handle">⋮⋮</span>
+                            Hier ist
+                        </div>
+                        <div class="draggable-item" draggable="true" data-id="phrase5" data-correct="c">
+                            <span class="drag-handle">⋮⋮</span>
+                            das ist schon okay
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-text" style="line-height: 2.5;">
+                        <strong>Hallo Freunde,</strong><br><br>
+                        seit August bin ich in Frankfurt. 
+                        <div class="drop-zone" data-slot="a" data-label="(a)">
+                            <span class="drop-placeholder">(a) Arrastra aquí</span>
+                        </div><br>
+                        eine Schule für Krankenschwestern. Die Ausbildung<br>
+                        <div class="drop-zone" data-slot="b" data-label="(b)">
+                            <span class="drop-placeholder">(b) Arrastra aquí</span>
+                        </div> und macht viel Spaß. Ich<br>
+                        wohne in der Mozartallee 134. Mein Zimmer ist klein und gemütlich.<br>
+                        Es hat nur 15 Quadratmeter, aber 
+                        <div class="drop-zone" data-slot="c" data-label="(c)">
+                            <span class="drop-placeholder">(c) Arrastra aquí</span>
+                        </div>.<br>
+                        Leider habe ich keine Küche. Ich koche in meinem Zimmer und<br>
+                        <div class="drop-zone" data-slot="d" data-label="(d)">
+                            <span class="drop-placeholder">(d) Arrastra aquí</span>
+                        </div>. Aber das Viertel hier ist super.<br>
+                        <div class="drop-zone" data-slot="e" data-label="(e)">
+                            <span class="drop-placeholder">(e) Arrastra aquí</span>
+                        </div> Kneipen und Restaurants und<br>
+                        es ist immer etwas los.<br><br>
+                        Liebe Grüße nach Innsbruck<br>
+                        Barbara
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones -->
+            <div class="button-container">
+                <button class="btn-primary" onclick="evaluateTest()">📊 Evaluar</button>
+                <button class="btn-secondary" onclick="resetTest()">🔄 Reiniciar</button>
+            </div>
+
+            <!-- Resultados -->
+            <div class="results" id="results">
+                <div class="score" id="score"></div>
+                <div class="stats">
+                    <div class="stat-card">
+                        <div class="stat-value" id="correctAnswers">0</div>
+                        <div class="stat-label">Correctas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="incorrectAnswers">0</div>
+                        <div class="stat-label">Incorrectas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="percentage">0%</div>
+                        <div class="stat-label">Porcentaje</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabla de Evaluación según criterios originales -->
+            <div class="evaluation-table" style="margin-top: 40px; padding: 30px; background: #f8fafc; border-radius: 15px;">
+                <h3 style="text-align: center; color: #2d3748; margin-bottom: 20px;">📊 Criterios de Evaluación</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background: linear-gradient(135deg, #667eea, #764ba2); color: white;">
+                            <th style="padding: 15px; text-align: left; border-radius: 10px 0 0 0;">Sección</th>
+                            <th style="padding: 15px; text-align: center;">🔴 0-5 Punkte</th>
+                            <th style="padding: 15px; text-align: center;">🟡 6-7 Punkte</th>
+                            <th style="padding: 15px; text-align: center; border-radius: 0 10px 0 0;">🟢 8-10 Punkte</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: white;">
+                            <td style="padding: 15px; font-weight: 600; border-bottom: 1px solid #e2e8f0;">Wörter</td>
+                            <td style="padding: 15px; text-align: center; background: #fee2e2; border-bottom: 1px solid #e2e8f0;">0-5 Punkte</td>
+                            <td style="padding: 15px; text-align: center; background: #fef3c7; border-bottom: 1px solid #e2e8f0;">6-7 Punkte</td>
+                            <td style="padding: 15px; text-align: center; background: #d1fae5; border-bottom: 1px solid #e2e8f0;">8-10 Punkte</td>
+                        </tr>
+                        <tr style="background: #f8fafc;">
+                            <td style="padding: 15px; font-weight: 600; border-bottom: 1px solid #e2e8f0;">Strukturen</td>
+                            <td style="padding: 15px; text-align: center; background: #fee2e2; border-bottom: 1px solid #e2e8f0;">0-2 Punkte</td>
+                            <td style="padding: 15px; text-align: center; background: #fef3c7; border-bottom: 1px solid #e2e8f0;">3 Punkte</td>
+                            <td style="padding: 15px; text-align: center; background: #d1fae5; border-bottom: 1px solid #e2e8f0;">4-5 Punkte</td>
+                        </tr>
+                        <tr style="background: white;">
+                            <td style="padding: 15px; font-weight: 600; border-bottom: 1px solid #e2e8f0;">Kommunikation</td>
+                            <td style="padding: 15px; text-align: center; background: #fee2e2; border-bottom: 1px solid #e2e8f0;">0-2 Punkte</td>
+                            <td style="padding: 15px; text-align: center; background: #fef3c7; border-bottom: 1px solid #e2e8f0;">3 Punkte</td>
+                            <td style="padding: 15px; text-align: center; background: #d1fae5; border-bottom: 1px solid #e2e8f0;">4-5 Punkte</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="text-align: center; margin-top: 15px; color: #64748b; font-size: 0.95em;">
+                    🔴 Rojo: Necesita mejorar | 🟡 Amarillo: Satisfactorio | 🟢 Verde: Excelente
+                </p>
+            </div>
+        </div>
+
+        <footer>
+            <p>Preparatoria TecMilenio | Programa de Alemán | Prof. Daniel</p>
+            <p>Sistema Interactivo de Evaluación - Lektion 15</p>
+        </footer>
+    </div>
+
+    <script>
+        // SISTEMA DE INTEGRIDAD ACADÉMICA
+        let activityLog = {
+            pasteEvents: 0,
+            focusChanges: 0,
+            keystrokes: [],
+            inputTimes: {},
+            inputOrder: [],
+            startTime: Date.now()
+        };
+
+        // Inicializar tracking de actividad
+        function initializeActivityTracking() {
+            // Detectar eventos de pegado
+            document.addEventListener('paste', function(e) {
+                activityLog.pasteEvents++;
+            });
+
+            // Detectar cambios de ventana/pestaña
+            document.addEventListener('visibilitychange', function() {
+                if (document.hidden) {
+                    activityLog.focusChanges++;
+                }
+            });
+
+            // Trackear inputs
+            const inputs = document.querySelectorAll('.answer-input, input[type="radio"]');
+            inputs.forEach((input, index) => {
+                const inputId = `input_${index}`;
+                
+                input.addEventListener('focus', function() {
+                    activityLog.inputTimes[inputId] = {
+                        focusTime: Date.now(),
+                        element: input
+                    };
+                });
+
+                input.addEventListener('blur', function() {
+                    if (activityLog.inputTimes[inputId]) {
+                        activityLog.inputTimes[inputId].blurTime = Date.now();
+                        const timeSpent = activityLog.inputTimes[inputId].blurTime - activityLog.inputTimes[inputId].focusTime;
+                        activityLog.inputTimes[inputId].duration = timeSpent;
+                    }
+                });
+
+                input.addEventListener('input', function() {
+                    if (!activityLog.inputOrder.includes(inputId)) {
+                        activityLog.inputOrder.push(inputId);
+                    }
+                });
+
+                input.addEventListener('keydown', function(e) {
+                    activityLog.keystrokes.push({
+                        key: e.key,
+                        timestamp: Date.now(),
+                        inputId: inputId
+                    });
+                });
+            });
+        }
+
+        // Analizar actividad y calcular puntuación de integridad
+        function analyzeActivity() {
+            let integrityScore = 100;
+            let flags = [];
+
+            // 1. Eventos de pegado (copiar de IA)
+            if (activityLog.pasteEvents > 5) {
+                integrityScore -= 25;
+                flags.push('Alto número de eventos de pegado');
+            } else if (activityLog.pasteEvents > 2) {
+                integrityScore -= 10;
+            }
+
+            // 2. Cambios de ventana (consultar recursos externos)
+            if (activityLog.focusChanges > 10) {
+                integrityScore -= 15;
+                flags.push('Múltiples cambios de ventana');
+            } else if (activityLog.focusChanges > 5) {
+                integrityScore -= 8;
+            }
+
+            // 3. Velocidad de respuesta (demasiado rápido = IA)
+            let rapidAnswers = 0;
+            Object.values(activityLog.inputTimes).forEach(time => {
+                if (time.duration && time.duration < 500) {
+                    rapidAnswers++;
+                }
+            });
+
+            if (rapidAnswers > 8) {
+                integrityScore -= 30;
+                flags.push('Respuestas extremadamente rápidas');
+            } else if (rapidAnswers > 5) {
+                integrityScore -= 15;
+            }
+
+            // 4. Tiempo promedio (demasiado rápido en general)
+            const completedInputs = Object.values(activityLog.inputTimes).filter(t => t.duration);
+            if (completedInputs.length > 10) {
+                const avgTime = completedInputs.reduce((sum, t) => sum + t.duration, 0) / completedInputs.length;
+                if (avgTime < 2000) {
+                    integrityScore -= 25;
+                    flags.push('Tiempo promedio de respuesta sospechosamente bajo');
+                }
+            }
+
+            // 5. Falta de correcciones (no usar backspace = copiar texto perfecto)
+            const backspaceCount = activityLog.keystrokes.filter(k => k.key === 'Backspace').length;
+            const totalKeys = activityLog.keystrokes.length;
+            if (totalKeys > 50 && backspaceCount < totalKeys * 0.02) {
+                integrityScore -= 20;
+                flags.push('Ausencia de correcciones naturales');
+            }
+
+            // 6. Patrón secuencial perfecto (responder en orden 1,2,3...)
+            const isSequential = activityLog.inputOrder.every((id, index) => {
+                if (index === 0) return true;
+                const currentNum = parseInt(id.split('_')[1]);
+                const prevNum = parseInt(activityLog.inputOrder[index - 1].split('_')[1]);
+                return currentNum === prevNum + 1;
+            });
+
+            if (isSequential && activityLog.inputOrder.length > 10) {
+                integrityScore -= 15;
+                flags.push('Patrón de respuesta demasiado ordenado');
+            }
+
+            // Asegurar que el score no sea negativo
+            integrityScore = Math.max(0, integrityScore);
+
+            // Determinar nivel de riesgo
+            let riskLevel = 'low';
+            if (integrityScore < 40) {
+                riskLevel = 'high';
+            } else if (integrityScore < 70) {
+                riskLevel = 'medium';
+            }
+
+            return {
+                humanScore: integrityScore,
+                riskLevel: riskLevel,
+                flags: flags,
+                pasteEvents: activityLog.pasteEvents,
+                focusChanges: activityLog.focusChanges,
+                avgResponseTime: completedInputs.length > 0 
+                    ? Math.round(completedInputs.reduce((sum, t) => sum + t.duration, 0) / completedInputs.length)
+                    : 0,
+                totalTime: Math.round((Date.now() - activityLog.startTime) / 1000)
+            };
+        }
+
+        // Generar código de verificación visible
+        function generateVerificationCode(integrityScore, riskLevel) {
+            // Formato: ABC-DEFGH
+            // ABC = Puntuación de integridad (000-100)
+            // D = Nivel de riesgo (0=low, 1=medium, 2=high)
+            // EFGH = Últimos 4 dígitos del timestamp
+            
+            const scoreStr = String(integrityScore).padStart(3, '0');
+            const riskCode = riskLevel === 'low' ? '0' : riskLevel === 'medium' ? '1' : '2';
+            const timestamp = String(Date.now()).slice(-4);
+            
+            return `${scoreStr}-${riskCode}${timestamp}`;
+        }
+
+        // Mostrar tooltips con palabras en español
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar sistema de integridad
+            initializeActivityTracking();
+            
+            const inputs = document.querySelectorAll('.answer-input');
+            
+            inputs.forEach(input => {
+                input.addEventListener('focus', showCustomTooltip);
+                input.addEventListener('blur', hideCustomTooltip);
+                input.addEventListener('click', showCustomTooltip);
+                input.addEventListener('touchstart', showCustomTooltip);
+            });
+
+            // Inicializar sistema drag & drop
+            initializeDragAndDrop();
+        });
+
+        // SISTEMA DE DRAG & DROP
+        function initializeDragAndDrop() {
+            const draggables = document.querySelectorAll('.draggable-item');
+            const dropZones = document.querySelectorAll('.drop-zone');
+
+            // Configurar elementos arrastrables
+            draggables.forEach(draggable => {
+                draggable.addEventListener('dragstart', handleDragStart);
+                draggable.addEventListener('dragend', handleDragEnd);
+            });
+
+            // Configurar zonas de soltar
+            dropZones.forEach(zone => {
+                zone.addEventListener('dragover', handleDragOver);
+                zone.addEventListener('drop', handleDrop);
+                zone.addEventListener('dragleave', handleDragLeave);
+                zone.addEventListener('dragenter', handleDragEnter);
+            });
+        }
+
+        let draggedElement = null;
+
+        function handleDragStart(e) {
+            draggedElement = e.target;
+            e.target.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+            e.dataTransfer.setData('text/html', e.target.innerHTML);
+        }
+
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+
+        function handleDragOver(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            e.dataTransfer.dropEffect = 'move';
+            return false;
+        }
+
+        function handleDragEnter(e) {
+            if (!e.target.classList.contains('filled')) {
+                e.target.classList.add('drag-over');
+            }
+        }
+
+        function handleDragLeave(e) {
+            e.target.classList.remove('drag-over');
+        }
+
+        function handleDrop(e) {
+            if (e.stopPropagation) {
+                e.stopPropagation();
+            }
+            e.preventDefault();
+
+            const dropZone = e.target.closest('.drop-zone');
+            if (!dropZone) return;
+
+            dropZone.classList.remove('drag-over');
+
+            // Si ya hay algo, devolverlo al banco
+            if (dropZone.classList.contains('filled')) {
+                returnToBank(dropZone);
+            }
+
+            // Agregar el nuevo elemento
+            const phraseId = draggedElement.getAttribute('data-id');
+            const phraseText = draggedElement.textContent.trim().replace('⋮⋮', '').trim();
+            const correctSlot = draggedElement.getAttribute('data-correct');
+            
+            dropZone.innerHTML = `
+                <div class="dropped-item">
+                    <span>${phraseText}</span>
+                    <button class="remove-btn" onclick="returnToBank(this.closest('.drop-zone'))" title="Quitar">×</button>
+                </div>
+            `;
+            
+            dropZone.classList.add('filled');
+            dropZone.setAttribute('data-phrase-id', phraseId);
+            dropZone.setAttribute('data-correct-answer', correctSlot);
+
+            // Ocultar del banco
+            draggedElement.style.display = 'none';
+
+            return false;
+        }
+
+        function returnToBank(dropZone) {
+            if (!dropZone) return;
+            
+            const phraseId = dropZone.getAttribute('data-phrase-id');
+            if (phraseId) {
+                const originalItem = document.querySelector(`.draggable-item[data-id="${phraseId}"]`);
+                if (originalItem) {
+                    originalItem.style.display = 'flex';
+                }
+            }
+            
+            dropZone.innerHTML = `<span class="drop-placeholder">${dropZone.getAttribute('data-label')} Arrastra aquí</span>`;
+            dropZone.classList.remove('filled', 'correct', 'incorrect');
+            dropZone.removeAttribute('data-phrase-id');
+        }
+
+        // Función para evaluar zonas de drop en sección 3
+        function evaluateDropZones() {
+            let correct = 0;
+            const dropZones = document.querySelectorAll('.drop-zone');
+            
+            dropZones.forEach(zone => {
+                const phraseId = zone.getAttribute('data-phrase-id');
+                const slot = zone.getAttribute('data-slot');
+                const correctAnswer = zone.getAttribute('data-correct-answer');
+                
+                if (phraseId && correctAnswer === slot) {
+                    zone.classList.add('correct');
+                    zone.classList.remove('incorrect');
+                    correct++;
+                } else if (zone.classList.contains('filled')) {
+                    zone.classList.add('incorrect');
+                    zone.classList.remove('correct');
+                }
+            });
+            
+            return correct;
+        }
+
+        function showCustomTooltip(e) {
+            const input = e.target;
+            const helpText = input.getAttribute('data-help');
+            
+            if (!helpText) return;
+            
+            let tooltip = document.getElementById('custom-tooltip');
+            if (!tooltip) {
+                tooltip = document.createElement('div');
+                tooltip.id = 'custom-tooltip';
+                tooltip.className = 'custom-tooltip';
+                document.body.appendChild(tooltip);
+            }
+            
+            const rect = input.getBoundingClientRect();
+            tooltip.innerHTML = helpText;
+            tooltip.style.display = 'block';
+            
+            // Posicionar arriba del campo con más espacio
+            let left = rect.left + (rect.width / 2);
+            let top = rect.top - 45; // Más arriba para no tapar
+            
+            // Ajustar si está muy cerca de los bordes
+            if (left < 120) left = 120;
+            if (left > window.innerWidth - 120) left = window.innerWidth - 120;
+            if (top < 10) top = rect.bottom + 10; // Si no cabe arriba, ponerlo abajo
+            
+            tooltip.style.left = left + 'px';
+            tooltip.style.top = top + 'px';
+            tooltip.style.transform = 'translateX(-50%)';
+            tooltip.style.opacity = '1';
+        }
+
+        function hideCustomTooltip() {
+            const tooltip = document.getElementById('custom-tooltip');
+            if (tooltip) {
+                tooltip.style.opacity = '0';
+                setTimeout(() => {
+                    tooltip.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        function evaluateTest() {
+            let section1Correct = 0; // Wörter (6 preguntas)
+            let section2Correct = 0; // Strukturen (6 preguntas)
+            let section3Correct = 0; // Kommunikation (5 preguntas - drag & drop)
+            let total = 0;
+
+            // Evaluar Sección 1: Wörter (inputs de texto en primera sección)
+            const section1Inputs = document.querySelectorAll('.section:nth-of-type(1) input.answer-input[type="text"]');
+            section1Inputs.forEach(input => {
+                total++;
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = input.getAttribute('data-ans').toLowerCase();
+                
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                    section1Correct++;
+                } else {
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                }
+            });
+
+            // Evaluar Sección 2: Strukturen (radio buttons)
+            const radioGroups = ['q2a', 'q2b', 'q2c', 'q2d', 'q2e', 'q2f'];
+            radioGroups.forEach(groupName => {
+                total++;
+                const selected = document.querySelector(`input[name="${groupName}"]:checked`);
+                if (selected && selected.getAttribute('data-correct') === 'true') {
+                    section2Correct++;
+                }
+            });
+
+            // Evaluar Sección 3: Kommunikation (drag & drop)
+            section3Correct = evaluateDropZones();
+            total += 5; // 5 drop zones
+
+            const correct = section1Correct + section2Correct + section3Correct;
+
+            // ANALIZAR INTEGRIDAD
+            const integrityData = analyzeActivity();
+            const verificationCode = generateVerificationCode(integrityData.humanScore, integrityData.riskLevel);
+
+            // Calcular nivel por sección
+            function getLevel(score, section) {
+                if (section === 1) { // Wörter (max 6)
+                    if (score >= 5) return '🟢 Excelente';
+                    if (score >= 4) return '🟡 Satisfactorio';
+                    return '🔴 Necesita mejorar';
+                } else { // Strukturen y Kommunikation (max 6 y 5)
+                    if (score >= 4) return '🟢 Excelente';
+                    if (score === 3) return '🟡 Satisfactorio';
+                    return '🔴 Necesita mejorar';
+                }
+            }
+
+            // Mostrar resultados
+            const percentage = Math.round((correct / total) * 100);
+            
+            document.getElementById('score').innerHTML = `
+                <div style="font-size: 2.5em; color: var(--primary);">${percentage}%</div>
+                <div style="font-size: 1.2em; margin-top: 10px; color: #64748b;">Calificación Final</div>
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 10px; border: 2px solid var(--primary);">
+                    <div style="font-size: 0.9em; color: #64748b; margin-bottom: 5px;">Código de Verificación</div>
+                    <div style="font-family: 'Courier New', monospace; font-size: 1.8em; font-weight: bold; color: var(--primary); letter-spacing: 3px;">${verificationCode}</div>
+                </div>
+            `;
+
+            // Actualizar stats con desglose por sección (reemplaza todo el contenido)
+            const statsContainer = document.querySelector('.stats');
+            statsContainer.innerHTML = `
+                <div class="stat-card">
+                    <div class="stat-value">${section1Correct}/6</div>
+                    <div class="stat-label">Wörter</div>
+                    <div style="margin-top: 8px; font-size: 0.9em;">${getLevel(section1Correct, 1)}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${section2Correct}/6</div>
+                    <div class="stat-label">Strukturen</div>
+                    <div style="margin-top: 8px; font-size: 0.9em;">${getLevel(section2Correct, 2)}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${section3Correct}/5</div>
+                    <div class="stat-label">Kommunikation</div>
+                    <div style="margin-top: 8px; font-size: 0.9em;">${getLevel(section3Correct, 3)}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">${correct}/${total}</div>
+                    <div class="stat-label">Total</div>
+                    <div style="margin-top: 8px; font-size: 0.9em; font-weight: 600; color: var(--primary);">${percentage}%</div>
+                </div>
+            `;
+
+            // Guardar datos para descarga
+            window.lastTestResults = {
+                date: new Date().toLocaleString('es-MX'),
+                score: percentage,
+                correct: correct,
+                total: total,
+                section1: section1Correct,
+                section2: section2Correct,
+                section3: section3Correct,
+                verificationCode: verificationCode,
+                integrity: integrityData
+            };
+
+            document.getElementById('results').classList.add('show');
+
+            // Mostrar botón de descarga
+            showDownloadButton();
+
+            // Scroll a resultados
+            document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function resetTest() {
+            // Limpiar inputs de texto
+            const textInputs = document.querySelectorAll('input.answer-input[type="text"]');
+            textInputs.forEach(input => {
+                input.value = '';
+                input.classList.remove('correct', 'incorrect');
+            });
+
+            // Limpiar radio buttons
+            const radioInputs = document.querySelectorAll('input[type="radio"]');
+            radioInputs.forEach(radio => {
+                radio.checked = false;
+            });
+
+            // Limpiar zonas de drop y devolver elementos al banco
+            const dropZones = document.querySelectorAll('.drop-zone');
+            dropZones.forEach(zone => {
+                returnToBank(zone);
+            });
+
+            // Ocultar resultados y botón de descarga
+            document.getElementById('results').classList.remove('show');
+            const downloadBtn = document.getElementById('downloadBtn');
+            if (downloadBtn) downloadBtn.remove();
+
+            // Reiniciar tracking de integridad
+            activityLog = {
+                pasteEvents: 0,
+                focusChanges: 0,
+                keystrokes: [],
+                inputTimes: {},
+                inputOrder: [],
+                startTime: Date.now()
+            };
+
+            // Scroll al inicio
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showDownloadButton() {
+            // Evitar duplicados
+            const existingBtn = document.getElementById('downloadBtn');
+            if (existingBtn) existingBtn.remove();
+
+            const buttonContainer = document.querySelector('.button-container');
+            const downloadBtn = document.createElement('button');
+            downloadBtn.id = 'downloadBtn';
+            downloadBtn.className = 'btn-primary';
+            downloadBtn.innerHTML = '📥 Descargar Comprobante';
+            downloadBtn.onclick = downloadCertificate;
+            buttonContainer.insertBefore(downloadBtn, buttonContainer.firstChild);
+        }
+
+        function downloadCertificate() {
+            if (!window.lastTestResults) {
+                alert('Por favor evalúa el test primero');
+                return;
+            }
+
+            const data = window.lastTestResults;
+            const integrityData = data.integrity;
+
+            // Interpretar nivel de riesgo
+            function getRiskLevelText(level) {
+                if (level === 'low') return 'BAJO - Comportamiento normal';
+                if (level === 'medium') return 'MEDIO - Requiere revisión';
+                return 'ALTO - Comportamiento sospechoso';
+            }
+
+            const certificateContent = `
+════════════════════════════════════════════════════════════════
+        COMPROBANTE DE EVALUACIÓN
+        Lektion 15 - Test
+════════════════════════════════════════════════════════════════
+
+Estudiante: [Tu Nombre]
+Fecha: ${data.date}
+Preparatoria TecMilenio
+Código de Verificación: ${data.verificationCode}
+
+────────────────────────────────────────────────────────────────
+RESULTADOS DEL TEST
+────────────────────────────────────────────────────────────────
+
+Calificación Final: ${data.score}%
+Respuestas Correctas: ${data.correct}/${data.total}
+
+Desglose por Sección:
+  • Wörter:         ${data.section1}/6 respuestas correctas
+  • Strukturen:     ${data.section2}/6 respuestas correctas  
+  • Kommunikation:  ${data.section3}/5 respuestas correctas
+
+────────────────────────────────────────────────────────────────
+📊 DATOS DE INTEGRIDAD (USO DOCENTE)
+────────────────────────────────────────────────────────────────
+
+⚠️ ESTA SECCIÓN ES CONFIDENCIAL - SOLO PARA REVISIÓN DEL PROFESOR
+
+Puntuación de Integridad: ${integrityData.humanScore}/100
+Nivel de Riesgo: ${getRiskLevelText(integrityData.riskLevel)}
+
+Métricas de Comportamiento:
+  • Eventos de pegado detectados: ${integrityData.pasteEvents}
+  • Cambios de ventana/pestaña: ${integrityData.focusChanges}
+  • Tiempo promedio por respuesta: ${integrityData.avgResponseTime}ms
+  • Tiempo total de prueba: ${integrityData.totalTime} segundos
+
+Indicadores Detectados:
+${integrityData.flags.length > 0 ? integrityData.flags.map(f => `  ⚠ ${f}`).join('\n') : '  ✓ No se detectaron comportamientos sospechosos'}
+
+────────────────────────────────────────────────────────────────
+INTERPRETACIÓN DEL CÓDIGO DE VERIFICACIÓN
+────────────────────────────────────────────────────────────────
+
+Formato: ${data.verificationCode}
+         ABC-DEFGH
+
+Donde:
+  • ABC (${data.verificationCode.substring(0,3)}) = Puntuación de integridad (000-100)
+  • D (${data.verificationCode.charAt(4)}) = Nivel de riesgo (0=bajo, 1=medio, 2=alto)
+  • EFGH (${data.verificationCode.substring(5)}) = Timestamp de autenticidad
+
+Validación:
+${integrityData.riskLevel === 'low' ? '  ✅ CÓDIGO VERDE - Aceptar trabajo sin revisión adicional' : ''}${integrityData.riskLevel === 'medium' ? '  ⚠️ CÓDIGO AMARILLO - Revisar archivo de integridad' : ''}${integrityData.riskLevel === 'high' ? '  🚨 CÓDIGO ROJO - Entrevista con estudiante recomendada' : ''}
+
+────────────────────────────────────────────────────────────────
+NOTAS PARA EL PROFESOR
+────────────────────────────────────────────────────────────────
+
+Este comprobante contiene información sobre el comportamiento del
+estudiante durante la resolución del test. El sistema detecta:
+
+1. Uso de copiar/pegar (típico de ChatGPT/Claude)
+2. Cambios frecuentes de ventana (consulta de recursos)
+3. Velocidad de respuesta antinatural
+4. Ausencia de correcciones (texto perfecto = copiado)
+5. Patrones de comportamiento robóticos
+
+El Código de Verificación en el screenshot debe coincidir con
+este archivo para validar autenticidad.
+
+────────────────────────────────────────────────────────────────
+
+Este comprobante confirma la participación y completación del
+Test de Lektion 15.
+
+Para validación, presenta este comprobante junto con tu captura
+de pantalla del panel de resultados.
+
+────────────────────────────────────────────────────────────────
+        Preparatoria TecMilenio
+        Programa de Alemán
+════════════════════════════════════════════════════════════════
+        `;
+
+            // Crear y descargar archivo
+            const blob = new Blob([certificateContent], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `Lektion15_Comprobante_${Date.now()}.txt`;
+            link.click();
+        }
+    </script>
+</body>
+</html>

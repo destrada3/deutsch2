@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Ejercicios interactivos de alemán para estudiantes - Preparatoria TecMilenio">
+    <title>Deutsch Interaktiv | Ejercicios de Alemán</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f59e0b;
+            --dark: #1a202c;
+            --gray: #4a5568;
+            --light-gray: #e2e8f0;
+            --success: #10b981;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: var(--dark);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: var(--gray);
+            font-weight: 300;
+        }
+
+        .institution {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 30px;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        /* Info Banner */
+        .info-banner {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 40px;
+            border-left: 5px solid var(--accent);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .info-banner h2 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+
+        .info-banner p {
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* Module Grid */
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .module-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), var(--secondary));
+        }
+
+        .module-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        .module-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .module-number {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .module-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .module-lessons {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .module-lessons li {
+            padding: 10px 0;
+            color: var(--gray);
+            border-bottom: 1px solid var(--light-gray);
+            font-size: 0.95em;
+        }
+
+        .module-lessons li:last-child {
+            border-bottom: none;
+        }
+
+        .module-lessons li::before {
+            content: "📝 ";
+            margin-right: 8px;
+        }
+
+        .module-lessons a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-block;
+            font-weight: 500;
+        }
+
+        .module-lessons a:hover {
+            color: var(--secondary);
+            transform: translateX(5px);
+            text-decoration: underline;
+        }
+
+        .module-lessons a::after {
+            content: " →";
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .module-lessons a:hover::after {
+            opacity: 1;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Features Section */
+        .features {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2em;
+            margin-bottom: 30px;
+            color: var(--dark);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-item {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .feature-description {
+            color: var(--gray);
+            font-size: 0.95em;
+        }
+
+        /* iOS Compatibility Badge */
+        .ios-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #000;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Status Badge */
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .status-available {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status-coming-soon {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+    <script>
+        // Función para descargar el portafolio completo de un módulo
+        function downloadModulePortfolio(moduleNumber) {
+            // Configuración de archivos por módulo
+            const moduleFiles = {
+                5: [
+                    { name: 'lektion13_test.html', title: 'Lektion 13: Wege beschreiben' },
+                    { name: 'lektion14_test.html', title: 'Lektion 14: Wohnen' },
+                    { name: 'lektion15_test.html', title: 'Lektion 15: In der Stadt' }
+                ],
+                6: [
+                    { name: 'lektion16_test.html', title: 'Lektion 16: Termine' },
+                    { name: 'lektion17_test.html', title: 'Lektion 17: Pläne und Wünsche' },
+                    { name: 'lektion18_test.html', title: 'Lektion 18: Gesundheit und Krankheit' }
+                ],
+                7: [
+                    { name: 'lektion19_test.html', title: 'Lektion 19: Aussehen und Charakter' },
+                    { name: 'lektion20_test.html', title: 'Lektion 20: Im Haushalt' },
+                    { name: 'lektion21_test.html', title: 'Lektion 21: Regeln' }
+                ],
+                8: [
+                    { name: 'lektion22_test.html', title: 'Lektion 22: Kleidung' },
+                    { name: 'lektion23_test.html', title: 'Lektion 23: Wetter' },
+                    { name: 'lektion24_test.html', title: 'Lektion 24: Feste und Feiern' }
+                ]
+            };
+
+            const files = moduleFiles[moduleNumber];
+            if (!files) {
+                alert('Módulo no disponible');
+                return;
+            }
+
+            // Crear archivo README con información del portafolio
+            const readmeContent = `
+════════════════════════════════════════════════════════════════
+    PORTAFOLIO COMPLETO - MODUL ${moduleNumber}
+    Deutsch Interaktiv | Preparatoria TecMilenio
+════════════════════════════════════════════════════════════════
+
+📚 CONTENIDO DEL PORTAFOLIO:
+
+${files.map((file, index) => `${index + 1}. ${file.title}
+   Archivo: ${file.name}`).join('\n\n')}
+
+────────────────────────────────────────────────────────────────
+📱 CÓMO USAR ESTOS EJERCICIOS:
+────────────────────────────────────────────────────────────────
+
+Opción 1: Acceso Online (Recomendado)
+✅ Visita: https://tuusuario.github.io/deutsch-interaktiv/
+✅ Haz clic en cualquier lección
+✅ Trabaja directamente en tu navegador
+
+Opción 2: Uso Offline
+1. Abre cualquier archivo .html en Safari o Chrome
+2. Completa los ejercicios sin conexión a internet
+3. Guarda automáticamente tu progreso
+
+────────────────────────────────────────────────────────────────
+📋 INSTRUCCIONES DE ENTREGA:
+────────────────────────────────────────────────────────────────
+
+Para cada ejercicio completado:
+
+1. Evalúa tu trabajo (botón "📊 Evaluar")
+2. Toma SCREENSHOT del panel de resultados
+   - Debe verse el Código de Verificación
+3. Descarga el COMPROBANTE (.txt)
+   - Contiene datos de integridad
+4. Sube AMBOS archivos a Canvas:
+   - Screenshot (.png o .jpg)
+   - Comprobante (.txt)
+
+⚠️ IMPORTANTE:
+El Código de Verificación en el screenshot DEBE coincidir
+con el código en el archivo .txt para validar autenticidad.
+
+────────────────────────────────────────────────────────────────
+✨ CARACTERÍSTICAS:
+────────────────────────────────────────────────────────────────
+
+✅ Auto-evaluación con feedback inmediato
+✅ Tooltips con traducciones al español
+✅ Sistema anti-trampa con código de verificación
+✅ Funciona 100% offline una vez descargado
+✅ Compatible con iOS, Android, Windows, Mac
+
+────────────────────────────────────────────────────────────────
+🎓 SISTEMA DE CALIFICACIÓN:
+────────────────────────────────────────────────────────────────
+
+Cada ejercicio tiene 3 secciones:
+• Wörter (Vocabulario)
+• Strukturen (Estructuras gramaticales)
+• Kommunikation (Comunicación)
+
+Niveles de desempeño:
+🟢 Excelente
+🟡 Satisfactorio
+🔴 Necesita mejorar
+
+────────────────────────────────────────────────────────────────
+📊 CÓDIGO DE VERIFICACIÓN:
+────────────────────────────────────────────────────────────────
+
+Formato: ABC-DEFGH
+
+Donde:
+• ABC = Puntuación de integridad (000-100)
+• D = Nivel de riesgo (0=bajo, 1=medio, 2=alto)
+• EFGH = Timestamp de autenticidad
+
+Ejemplo: 092-03456
+- 092 = 92 puntos de integridad ✅
+- 0 = Nivel de riesgo bajo
+- 3456 = Timestamp único
+
+────────────────────────────────────────────────────────────────
+
+Desarrollado con ❤️ por Prof. Daniel
+Preparatoria TecMilenio | Programa de Alemán
+
+© 2026 TecMilenio. Todos los derechos reservados.
+
+════════════════════════════════════════════════════════════════
+            `.trim();
+
+            // Crear y descargar el README
+            const blob = new Blob([readmeContent], { type: 'text/plain;charset=utf-8' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = `Modul${moduleNumber}_Portafolio_README.txt`;
+            link.click();
+
+            // Mostrar mensaje de confirmación
+            setTimeout(() => {
+                alert(`✅ Portafolio del Módulo ${moduleNumber} descargado!\n\n📋 Archivo incluido:\n- README con instrucciones completas\n\n💡 Los ejercicios individuales están disponibles haciendo clic en cada lección.\n\n🌐 Acceso online recomendado:\nhttps://tuusuario.github.io/deutsch-interaktiv/`);
+            }, 500);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">🇩🇪</div>
+            <h1>Deutsch Interaktiv</h1>
+            <p class="subtitle">Ejercicios interactivos de alemán con evaluación automática</p>
+            <div class="institution">Preparatoria TecMilenio | Prof. Daniel</div>
+            <div class="ios-badge">
+                <span>🍎</span>
+                <span>Optimizado para iOS</span>
+            </div>
+        </header>
+
+        <!-- Info Banner -->
+        <div class="info-banner">
+            <h2>📱 ¿Cómo usar estos ejercicios?</h2>
+            <p>
+                <strong>1.</strong> Haz clic en "Iniciar Ejercicio" de cualquier lección<br>
+                <strong>2.</strong> El ejercicio se abre directamente en tu navegador<br>
+                <strong>3.</strong> Completa los ejercicios (funciona sin internet una vez cargado)<br>
+                <strong>4.</strong> Evalúa tu trabajo y descarga el comprobante<br>
+                <strong>5.</strong> Toma screenshot + descarga archivo .txt y súbelos a Canvas
+            </p>
+        </div>
+
+        <!-- Module 5 -->
+        <div class="modules-grid">
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-number">5</div>
+                    <div>
+                        <div class="module-title">Modul 5</div>
+                        <span class="status-badge status-available">✓ Disponible</span>
+                    </div>
+                </div>
+                <ul class="module-lessons">
+                    <li><a href="lektion13_test.html">Lektion 13: Wege beschreiben</a></li>
+                    <li><a href="lektion14_test.html">Lektion 14: Wohnen</a></li>
+                    <li><a href="lektion15_test.html">Lektion 15: In der Stadt</a></li>
+                </ul>
+                <div class="btn-group">
+                    <a href="#" onclick="downloadModulePortfolio(5); return false;" class="btn btn-primary">
+                        📦 Descargar Portafolio Completo
+                    </a>
+                    <a href="https://github.com/tuusuario/deutsch-interaktiv/tree/main/modul5" target="_blank" class="btn btn-secondary">
+                        📁 Ver en GitHub
+                    </a>
+                </div>
+            </div>
+
+            <!-- Module 6 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-number">6</div>
+                    <div>
+                        <div class="module-title">Modul 6</div>
+                        <span class="status-badge status-coming-soon">⏳ Próximamente</span>
+                    </div>
+                </div>
+                <ul class="module-lessons">
+                    <li><a href="lektion16_test.html">Lektion 16: Termine</a></li>
+                    <li><a href="lektion17_test.html">Lektion 17: Pläne und Wünsche</a></li>
+                    <li><a href="lektion18_test.html">Lektion 18: Gesundheit und Krankheit</a></li>
+                </ul>
+                <div class="btn-group">
+                    <button class="btn btn-secondary" disabled style="opacity: 0.5; cursor: not-allowed;">
+                        📦 Portafolio Próximamente
+                    </button>
+                </div>
+            </div>
+
+            <!-- Module 7 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-number">7</div>
+                    <div>
+                        <div class="module-title">Modul 7</div>
+                        <span class="status-badge status-coming-soon">⏳ Próximamente</span>
+                    </div>
+                </div>
+                <ul class="module-lessons">
+                    <li><a href="lektion19_test.html">Lektion 19: Aussehen und Charakter</a></li>
+                    <li><a href="lektion20_test.html">Lektion 20: Im Haushalt</a></li>
+                    <li><a href="lektion21_test.html">Lektion 21: Regeln</a></li>
+                </ul>
+                <div class="btn-group">
+                    <button class="btn btn-secondary" disabled style="opacity: 0.5; cursor: not-allowed;">
+                        📦 Portafolio Próximamente
+                    </button>
+                </div>
+            </div>
+
+            <!-- Module 8 -->
+            <div class="module-card">
+                <div class="module-header">
+                    <div class="module-number">8</div>
+                    <div>
+                        <div class="module-title">Modul 8</div>
+                        <span class="status-badge status-coming-soon">⏳ Próximamente</span>
+                    </div>
+                </div>
+                <ul class="module-lessons">
+                    <li><a href="lektion22_test.html">Lektion 22: Kleidung</a></li>
+                    <li><a href="lektion23_test.html">Lektion 23: Wetter</a></li>
+                    <li><a href="lektion24_test.html">Lektion 24: Feste und Feiern</a></li>
+                </ul>
+                <div class="btn-group">
+                    <button class="btn btn-secondary" disabled style="opacity: 0.5; cursor: not-allowed;">
+                        📦 Portafolio Próximamente
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features -->
+        <div class="features">
+            <h2>✨ Características de los Ejercicios</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <div class="feature-title">Acceso Directo</div>
+                    <div class="feature-description">Abre desde cualquier navegador, sin descargas</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚡</div>
+                    <div class="feature-title">Caché Inteligente</div>
+                    <div class="feature-description">Se guarda en tu navegador automáticamente</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Auto-evaluación</div>
+                    <div class="feature-description">Corrección automática con feedback inmediato</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💡</div>
+                    <div class="feature-title">Ayudas Inteligentes</div>
+                    <div class="feature-description">Tooltips con traducciones al español</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <div class="feature-title">Sistema Anti-trampa</div>
+                    <div class="feature-description">Código de verificación con datos de integridad</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">💾</div>
+                    <div class="feature-title">Autoguardado</div>
+                    <div class="feature-description">Tu progreso se guarda automáticamente</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">📥</div>
+                    <div class="feature-title">Comprobante Digital</div>
+                    <div class="feature-description">Descarga tu evidencia en formato .txt</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Access Section -->
+        <div class="info-banner" style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-left-color: var(--primary);">
+            <h2 style="color: var(--primary);">🔗 Acceso Rápido desde iPhone/iPad</h2>
+            <p>
+                <strong>💡 Tip:</strong> Puedes agregar estos ejercicios a tu pantalla de inicio para acceso rápido:<br>
+                <strong>1.</strong> Abre el ejercicio en Safari<br>
+                <strong>2.</strong> Toca el ícono de "Compartir" (cuadrado con flecha arriba)<br>
+                <strong>3.</strong> Selecciona "Añadir a pantalla de inicio"<br>
+                <strong>4.</strong> ¡Listo! Ahora tienes acceso como si fuera una app nativa 📲
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p><strong>Preparatoria TecMilenio | Programa de Alemán</strong></p>
+            <p style="margin: 15px 0;">Desarrollado con ❤️ por Prof. Daniel</p>
+            <p style="font-size: 0.9em; opacity: 0.9;">
+                🔗 <a href="https://github.com/tuusuario/deutsch-interaktiv" target="_blank">GitHub Repository</a> | 
+                📧 <a href="mailto:tu.email@example.com">Contacto</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 0.85em; opacity: 0.8;">
+                © 2026 TecMilenio. Todos los derechos reservados.
+            </p>
+        </footer>
+    </div>
+</body>
+</html>
