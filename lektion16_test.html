@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lektion 16: Im Hotel (Übung)</title>
+    <style>
+        :root {
+            --primary: #005f73;
+            --secondary: #0a9396;
+            --accent: #ee9b00;
+            --error: #ae2012;
+            --success: #27ae60;
+            --bg: #f1faee;
+            --text: #1d3557;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 80px;
+        }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            font-weight: bold;
+        }
+
+        .stat-box {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        .stat-attempts { background: #e9ecef; color: var(--primary); }
+        .stat-focus { background: #ffe3e3; color: var(--error); }
+
+        h1 { text-align: center; color: var(--primary); margin-bottom: 
+5px; }
+        p.subtitle { text-align: center; color: #666; margin-top: 0; 
+margin-bottom: 30px; }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 25px;
+            border-top: 4px solid var(--secondary);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.2em;
+            color: var(--primary);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .instruction {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .word-bank {
+            background: #e9ecef;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-family: monospace;
+            text-align: center;
+            color: var(--primary);
+        }
+
+        .question-row {
+            margin-bottom: 12px;
+            line-height: 2;
+        }
+
+        input[type="text"] {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px 8px;
+            font-size: 1rem;
+            color: #333;
+            transition: all 0.3s;
+            background: #fafafa;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--secondary);
+            background: #fff;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(10, 147, 150, 0.1);
+        }
+
+        input.correct { border-color: var(--success); background-color: 
+#e8f5e9; }
+        input.incorrect { border-color: var(--error); background-color: 
+#ffebee; }
+
+        .scramble-hint {
+            background: #333;
+            color: #fff;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: monospace;
+            letter-spacing: 1px;
+            margin-right: 5px;
+            font-size: 0.9em;
+        }
+
+        .feedback-icon {
+            display: inline-block;
+            margin-left: 5px;
+            font-weight: bold;
+            font-size: 1.1em;
+            vertical-align: middle;
+        }
+        .feedback-icon.ok { color: var(--success); }
+        .feedback-icon.no { color: var(--error); }
+
+        .mc-options {
+            display: inline-flex;
+            gap: 15px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+        .mc-label { cursor: pointer; padding: 2px 8px; border-radius: 4px; 
+}
+        .mc-label:hover { background: #f1f1f1; }
+
+        .actions {
+            text-align: center;
+            margin: 40px 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 12px 30px;
+            font-size: 1.1em;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.1s;
+            font-weight: bold;
+        }
+        button:active { transform: scale(0.98); }
+        .btn-check { background-color: var(--secondary); color: white; 
+box-shadow: 0 4px 10px rgba(10, 147, 150, 0.3); }
+        .btn-reset { background-color: #6c757d; color: white; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="stat-box stat-attempts">Versuch: <span 
+id="attempt-count">0</span></div>
+        <div>Lektion 16 Test</div>
+        <div class="stat-box stat-focus">Fokus-Verlust: <span 
+id="focus-count">0</span></div>
+    </header>
+
+    <h1>Im Hotel</h1>
+    <p class="subtitle">Grammatik, Wortschatz und Kommunikation</p>
+
+    <div class="card">
+        <h2>1. Wortsalat</h2>
+        <span class="instruction">Ordnen Sie die Buchstaben und ergänzen 
+Sie.</span>
+        
+        <div class="question-row">
+            Das Hotel hat leider keinen <span 
+class="scramble-hint">ALGALENMIAK</span>
+            <input type="text" data-ans="klimaanlage" 
+placeholder="..."><span class="fb"></span>
+        </div>
+        <div class="question-row">
+            (a) Im Erdgeschoss gibt es einen <span 
+class="scramble-hint">FUGAZU</span>
+            <input type="text" data-ans="aufzug"><span class="fb"></span>
+        </div>
+        <div class="question-row">
+            (b) und keine <span 
+class="scramble-hint">DEBTGVIRENTURNENIN</span>
+            <input type="text" data-ans="internetverbindung" style="width: 
+200px;"><span class="fb"></span>
+        </div>
+        <div class="question-row">
+            (c) Jedes Zimmer hat einen <span 
+class="scramble-hint">RENFEHESR</span>
+            <input type="text" data-ans="fernseher"><span 
+class="fb"></span>
+        </div>
+        <div class="question-row">
+            (d) In jedem Bad gibt es eine <span 
+class="scramble-hint">SHEDUC</span>
+            <input type="text" data-ans="dusche"><span class="fb"></span>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>2. Gegenteile & Adjektive</h2>
+        <span class="instruction">Ergänzen Sie das fehlende Wort.</span>
+
+        <div class="question-row">
+            a) Das Radio funktioniert nicht, es ist 
+<strong>k</strong><input type="text" data-ans="kaputt" style="width: 
+80px;"><span class="fb"></span>
+        </div>
+        <div class="question-row">
+            b) Er kommt immer zu spät, er ist nie <strong>p</strong><input 
+type="text" data-ans="pünktlich" style="width: 100px;"><span 
+class="fb"></span>
+        </div>
+        <div class="question-row">
+            c) Der Deutschkurs ist nicht langweilig, er ist 
+<strong>l</strong><input type="text" data-ans="lustig" style="width: 
+80px;"><span class="fb"></span>
+        </div>
+        <div class="question-row">
+            d) Heute ist es nicht heiß, es ist <strong>k</strong><input 
+type="text" data-ans="kalt" style="width: 60px;"><span class="fb"></span>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>3. Präpositionen</h2>
+        <span class="instruction">Ergänzen Sie: <b>für, vor, nach, 
+in</b>.</span>
+
+        <div class="question-row">
+            1. Wann bist du fertig? — <input type="text" data-ans="in" 
+style="width: 50px;"><span class="fb"></span> einem Jahr.
+        </div>
+        <div class="question-row">
+            2. Was machst du <input type="text" data-ans="nach" 
+style="width: 60px;"><span class="fb"></span> der Ausbildung?
+        </div>
+        <div class="question-row">
+            3. Ich gehe <input type="text" data-ans="für" style="width: 
+50px;"><span class="fb"></span> zwei Jahre nach London.
+        </div>
+        <div class="question-row">
+            4. Warst du schon in England? — Ja, <input type="text" 
+data-ans="vor" style="width: 50px;"><span class="fb"></span> fünf Jahren.
+        </div>
+        <div class="question-row">
+            5. <input type="text" data-ans="vor" style="width: 
+50px;"><span class="fb"></span> sechs Monaten habe ich gut Englisch 
+gesprochen.
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>4. Grammatik</h2>
+        <span class="instruction">Kreuzen Sie an: Was ist richtig?</span>
+
+        <div class="question-row">
+            a) Die U-Bahn kommt in ... Minute.
+            <div class="mc-options">
+                <label class="mc-label"><input type="radio" name="q4a" 
+value="einer"> einer</label>
+                <label class="mc-label"><input type="radio" name="q4a" 
+value="einen"> einen</label>
+                <label class="mc-label"><input type="radio" name="q4a" 
+value="einem"> einem</label>
+            </div>
+            <span class="feedback-icon" id="fb-q4a"></span>
+        </div>
+        <div class="question-row">
+            b) Nach ... Deutschkurs fährt Isabella.
+            <div class="mc-options">
+                <label class="mc-label"><input type="radio" name="q4b" 
+value="das"> das</label>
+                <label class="mc-label"><input type="radio" name="q4b" 
+value="der"> der</label>
+                <label class="mc-label"><input type="radio" name="q4b" 
+value="dem"> dem</label>
+            </div>
+            <span class="feedback-icon" id="fb-q4b"></span>
+        </div>
+        <div class="question-row">
+            c) Yakub ist vor ... Jahr gekommen.
+            <div class="mc-options">
+                <label class="mc-label"><input type="radio" name="q4c" 
+value="einer"> einer</label>
+                <label class="mc-label"><input type="radio" name="q4c" 
+value="einen"> einen</label>
+                <label class="mc-label"><input type="radio" name="q4c" 
+value="einem"> einem</label>
+            </div>
+            <span class="feedback-icon" id="fb-q4c"></span>
+        </div>
+        <div class="question-row">
+            d) Sie braucht das Auto nur für ... Tag.
+            <div class="mc-options">
+                <label class="mc-label"><input type="radio" name="q4d" 
+value="ein"> ein</label>
+                <label class="mc-label"><input type="radio" name="q4d" 
+value="einen"> einen</label>
+                <label class="mc-label"><input type="radio" name="q4d" 
+value="eine"> eine</label>
+            </div>
+            <span class="feedback-icon" id="fb-q4d"></span>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>5. Kommunikation</h2>
+        <div class="word-bank">
+            Das ist | Was kann | Es gibt | Ich kümmere | Das tut
+        </div>
+        <span class="instruction">Ergänzen Sie das Gespräch.</span>
+
+        <div class="question-row">
+            Rezeption: Ja gern. (1) <input type="text" data-ans="was 
+kann"><span class="fb"></span> ich für Sie tun?
+        </div>
+        <div class="question-row">
+            Gast: (2) <input type="text" data-ans="es gibt"><span 
+class="fb"></span> keine Seife in der Dusche.
+        </div>
+        <div class="question-row">
+            Rezeption: Wie dumm! (3) <input type="text" data-ans="das 
+tut"><span class="fb"></span> mir leid.
+        </div>
+        <div class="question-row">
+            Rezeption: (4) <input type="text" data-ans="ich kümmere"><span 
+class="fb"></span> mich sofort darum.
+        </div>
+        <div class="question-row">
+            Gast: (5) <input type="text" data-ans="das ist"><span 
+class="fb"></span> sehr nett.
+        </div>
+    </div>
+
+    <div class="actions">
+        <button class="btn-reset" onclick="resetExam()">Neu 
+starten</button>
+        <button class="btn-check" onclick="checkAnswers()">Prüfen 
+(Corregir)</button>
+    </div>
+
+    <script>
+        /* ========== ANTI-TRAMPAS ========== */
+        let focusBreaks = 0;
+        let attemptCount = 0;
+        let userIsInteracting = false;
+
+        // Detectar si el usuario está tocando un input (evita falsos 
+positivos en móvil)
+        document.addEventListener("touchstart", function() { 
+userIsInteracting = true; });
+        document.addEventListener("touchend", function() {
+            setTimeout(function() { userIsInteracting = false; }, 500);
+        });
+
+        // visibilitychange: se dispara cuando cambia de pestaña o 
+minimiza
+        document.addEventListener("visibilitychange", function() {
+            if (document.hidden && !userIsInteracting) {
+                incrementFocusLoss();
+            }
+        });
+
+        // blur: se dispara al perder foco la ventana
+        window.addEventListener("blur", function() {
+            setTimeout(function() {
+                // Solo contar si realmente salió de la página (no si tocó 
+un input)
+                if (!document.hasFocus() && !userIsInteracting) {
+                    incrementFocusLoss();
+                }
+            }, 300);
+        });
+
+        function incrementFocusLoss() {
+            focusBreaks++;
+            var el = document.getElementById('focus-count');
+            el.innerText = focusBreaks;
+            el.parentElement.style.backgroundColor = "#ffcccc";
+        }
+
+        /* ========== NORMALIZAR TEXTO ========== */
+        function normalize(str) {
+            return str.trim().toLowerCase().replace(/[.,?!;:"""''´`]/g, 
+"").replace(/\s+/g, " ");
+        }
+
+        /* ========== RESPUESTAS MC ========== */
+        var mcAnswers = {
+            'q4a': 'einer',
+            'q4b': 'dem',
+            'q4c': 'einem',
+            'q4d': 'einen'
+        };
+
+        /* ========== CORREGIR ========== */
+        function checkAnswers() {
+            var correctCount = 0;
+            var totalCount = 0;
+
+            // --- TEXT INPUTS ---
+            var textInputs = 
+document.querySelectorAll('input[type="text"]');
+            for (var i = 0; i < textInputs.length; i++) {
+                var input = textInputs[i];
+                totalCount++;
+
+                var userVal = normalize(input.value);
+                var correctVal = 
+normalize(input.getAttribute("data-ans"));
+
+                // El span .fb que está justo después del input
+                var fbSpan = input.nextElementSibling;
+
+                // Reset
+                input.classList.remove('correct', 'incorrect');
+                if (fbSpan && fbSpan.classList.contains('fb')) {
+                    fbSpan.className = 'fb feedback-icon';
+                    fbSpan.innerHTML = '';
+                }
+
+                if (userVal === correctVal && userVal !== "") {
+                    input.classList.add('correct');
+                    if (fbSpan) {
+                        fbSpan.classList.add('ok');
+                        fbSpan.innerHTML = " ✓";
+                    }
+                    correctCount++;
+                } else if (userVal !== "") {
+                    input.classList.add('incorrect');
+                    if (fbSpan) {
+                        fbSpan.classList.add('no');
+                        fbSpan.innerHTML = " ✗";
+                    }
+                }
+            }
+
+            // --- RADIO BUTTONS ---
+            for (var group in mcAnswers) {
+                totalCount++;
+                var selected = document.querySelector('input[name="' + 
+group + '"]:checked');
+                var fbEl = document.getElementById('fb-' + group);
+
+                if (fbEl) {
+                    fbEl.className = 'feedback-icon';
+                    fbEl.innerHTML = '';
+                }
+
+                if (selected) {
+                    if (selected.value === mcAnswers[group]) {
+                        correctCount++;
+                        if (fbEl) {
+                            fbEl.classList.add('ok');
+                            fbEl.innerHTML = " ✓ Richtig";
+                        }
+                    } else {
+                        if (fbEl) {
+                            fbEl.classList.add('no');
+                            fbEl.innerHTML = " ✗ Falsch";
+                        }
+                    }
+                }
+            }
+
+            attemptCount++;
+            document.getElementById('attempt-count').innerText = 
+attemptCount;
+
+            alert("Ergebnis: " + correctCount + " / " + totalCount + " 
+korrekt.");
+        }
+
+        /* ========== REINICIAR ========== */
+        function resetExam() {
+            if (!confirm("Möchten Sie wirklich neu starten?")) return;
+
+            var textInputs = 
+document.querySelectorAll('input[type="text"]');
+            for (var i = 0; i < textInputs.length; i++) {
+                textInputs[i].value = '';
+                textInputs[i].classList.remove('correct', 'incorrect');
+                var fb = textInputs[i].nextElementSibling;
+                if (fb && fb.classList.contains('fb')) {
+                    fb.className = 'fb feedback-icon';
+                    fb.innerHTML = '';
+                }
+            }
+
+            var radios = document.querySelectorAll('input[type="radio"]');
+            for (var j = 0; j < radios.length; j++) {
+                radios[j].checked = false;
+            }
+
+            for (var group in mcAnswers) {
+                var fbEl = document.getElementById('fb-' + group);
+                if (fbEl) {
+                    fbEl.className = 'feedback-icon';
+                    fbEl.innerHTML = '';
+                }
+            }
+
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
