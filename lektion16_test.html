@@ -2,8 +2,9 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lektion 16: Im Hotel (Übung)</title>
+    <title>Lektion 16: Im Hotel</title>
     <style>
         :root {
             --primary: #005f73;
@@ -14,6 +15,8 @@
             --bg: #f1faee;
             --text: #1d3557;
         }
+
+        * { box-sizing: border-box; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -43,14 +46,12 @@
             border-radius: 20px;
             font-size: 0.9em;
         }
-        
+
         .stat-attempts { background: #e9ecef; color: var(--primary); }
         .stat-focus { background: #ffe3e3; color: var(--error); }
 
-        h1 { text-align: center; color: var(--primary); margin-bottom: 
-5px; }
-        p.subtitle { text-align: center; color: #666; margin-top: 0; 
-margin-bottom: 30px; }
+        h1 { text-align: center; color: var(--primary); margin-bottom: 5px; }
+        p.subtitle { text-align: center; color: #666; margin-top: 0; margin-bottom: 30px; }
 
         .card {
             background: white;
@@ -108,10 +109,8 @@ margin-bottom: 30px; }
             box-shadow: 0 0 0 3px rgba(10, 147, 150, 0.1);
         }
 
-        input.correct { border-color: var(--success); background-color: 
-#e8f5e9; }
-        input.incorrect { border-color: var(--error); background-color: 
-#ffebee; }
+        input.correct { border-color: var(--success) !important; background-color: #e8f5e9 !important; }
+        input.incorrect { border-color: var(--error) !important; background-color: #ffebee !important; }
 
         .scramble-hint {
             background: #333;
@@ -123,6 +122,16 @@ margin-bottom: 30px; }
             margin-right: 5px;
             font-size: 0.9em;
         }
+
+        .fb {
+            display: inline-block;
+            margin-left: 5px;
+            font-weight: bold;
+            font-size: 1.1em;
+            vertical-align: middle;
+        }
+        .fb.ok { color: var(--success); }
+        .fb.no { color: var(--error); }
 
         .feedback-icon {
             display: inline-block;
@@ -139,9 +148,9 @@ margin-bottom: 30px; }
             gap: 15px;
             margin-left: 10px;
             vertical-align: middle;
+            flex-wrap: wrap;
         }
-        .mc-label { cursor: pointer; padding: 2px 8px; border-radius: 4px; 
-}
+        .mc-label { cursor: pointer; padding: 2px 8px; border-radius: 4px; }
         .mc-label:hover { background: #f1f1f1; }
 
         .actions {
@@ -150,6 +159,7 @@ margin-bottom: 30px; }
             display: flex;
             justify-content: center;
             gap: 20px;
+            flex-wrap: wrap;
         }
 
         button {
@@ -162,112 +172,90 @@ margin-bottom: 30px; }
             font-weight: bold;
         }
         button:active { transform: scale(0.98); }
-        .btn-check { background-color: var(--secondary); color: white; 
-box-shadow: 0 4px 10px rgba(10, 147, 150, 0.3); }
+        .btn-check { background-color: var(--secondary); color: white; box-shadow: 0 4px 10px rgba(10, 147, 150, 0.3); }
         .btn-reset { background-color: #6c757d; color: white; }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="stat-box stat-attempts">Versuch: <span 
-id="attempt-count">0</span></div>
+        <div class="stat-box stat-attempts">Versuch: <span id="attempt-count">0</span></div>
         <div>Lektion 16 Test</div>
-        <div class="stat-box stat-focus">Fokus-Verlust: <span 
-id="focus-count">0</span></div>
+        <div class="stat-box stat-focus">Fokus-Verlust: <span id="focus-count">0</span></div>
     </header>
 
     <h1>Im Hotel</h1>
     <p class="subtitle">Grammatik, Wortschatz und Kommunikation</p>
 
+    <!-- EJERCICIO 1 -->
     <div class="card">
         <h2>1. Wortsalat</h2>
-        <span class="instruction">Ordnen Sie die Buchstaben und ergänzen 
-Sie.</span>
-        
+        <span class="instruction">Ordnen Sie die Buchstaben und erg&#228;nzen Sie.</span>
+
         <div class="question-row">
-            Das Hotel hat leider keinen <span 
-class="scramble-hint">ALGALENMIAK</span>
-            <input type="text" data-ans="klimaanlage" 
-placeholder="..."><span class="fb"></span>
+            Das Hotel hat leider keinen <span class="scramble-hint">ALGALENMIAK</span>
+            <input type="text" data-ans="klimaanlage" placeholder="..."><span class="fb"></span>
         </div>
         <div class="question-row">
-            (a) Im Erdgeschoss gibt es einen <span 
-class="scramble-hint">FUGAZU</span>
+            (a) Im Erdgeschoss gibt es einen <span class="scramble-hint">FUGAZU</span>
             <input type="text" data-ans="aufzug"><span class="fb"></span>
         </div>
         <div class="question-row">
-            (b) und keine <span 
-class="scramble-hint">DEBTGVIRENTURNENIN</span>
-            <input type="text" data-ans="internetverbindung" style="width: 
-200px;"><span class="fb"></span>
+            (b) und keine <span class="scramble-hint">DEBTGVIRENTURNENIN</span>
+            <input type="text" data-ans="internetverbindung" style="width:200px;"><span class="fb"></span>
         </div>
         <div class="question-row">
-            (c) Jedes Zimmer hat einen <span 
-class="scramble-hint">RENFEHESR</span>
-            <input type="text" data-ans="fernseher"><span 
-class="fb"></span>
+            (c) Jedes Zimmer hat einen <span class="scramble-hint">RENFEHESR</span>
+            <input type="text" data-ans="fernseher"><span class="fb"></span>
         </div>
         <div class="question-row">
-            (d) In jedem Bad gibt es eine <span 
-class="scramble-hint">SHEDUC</span>
+            (d) In jedem Bad gibt es eine <span class="scramble-hint">SHEDUC</span>
             <input type="text" data-ans="dusche"><span class="fb"></span>
         </div>
     </div>
 
+    <!-- EJERCICIO 2 -->
     <div class="card">
-        <h2>2. Gegenteile & Adjektive</h2>
-        <span class="instruction">Ergänzen Sie das fehlende Wort.</span>
+        <h2>2. Gegenteile &amp; Adjektive</h2>
+        <span class="instruction">Erg&#228;nzen Sie das fehlende Wort.</span>
 
         <div class="question-row">
-            a) Das Radio funktioniert nicht, es ist 
-<strong>k</strong><input type="text" data-ans="kaputt" style="width: 
-80px;"><span class="fb"></span>
+            a) Das Radio funktioniert nicht, es ist <strong>k</strong><input type="text" data-ans="kaputt" style="width:80px;"><span class="fb"></span>
         </div>
         <div class="question-row">
-            b) Er kommt immer zu spät, er ist nie <strong>p</strong><input 
-type="text" data-ans="pünktlich" style="width: 100px;"><span 
-class="fb"></span>
+            b) Er kommt immer zu sp&#228;t, er ist nie <strong>p</strong><input type="text" data-ans="p&#252;nktlich" style="width:100px;"><span class="fb"></span>
         </div>
         <div class="question-row">
-            c) Der Deutschkurs ist nicht langweilig, er ist 
-<strong>l</strong><input type="text" data-ans="lustig" style="width: 
-80px;"><span class="fb"></span>
+            c) Der Deutschkurs ist nicht langweilig, er ist <strong>l</strong><input type="text" data-ans="lustig" style="width:80px;"><span class="fb"></span>
         </div>
         <div class="question-row">
-            d) Heute ist es nicht heiß, es ist <strong>k</strong><input 
-type="text" data-ans="kalt" style="width: 60px;"><span class="fb"></span>
+            d) Heute ist es nicht hei&#223;, es ist <strong>k</strong><input type="text" data-ans="kalt" style="width:60px;"><span class="fb"></span>
         </div>
     </div>
 
+    <!-- EJERCICIO 3 -->
     <div class="card">
-        <h2>3. Präpositionen</h2>
-        <span class="instruction">Ergänzen Sie: <b>für, vor, nach, 
-in</b>.</span>
+        <h2>3. Pr&#228;positionen</h2>
+        <span class="instruction">Erg&#228;nzen Sie: <b>f&#252;r, vor, nach, in</b>.</span>
 
         <div class="question-row">
-            1. Wann bist du fertig? — <input type="text" data-ans="in" 
-style="width: 50px;"><span class="fb"></span> einem Jahr.
+            1. Wann bist du fertig? &#8212; <input type="text" data-ans="in" style="width:50px;"><span class="fb"></span> einem Jahr.
         </div>
         <div class="question-row">
-            2. Was machst du <input type="text" data-ans="nach" 
-style="width: 60px;"><span class="fb"></span> der Ausbildung?
+            2. Was machst du <input type="text" data-ans="nach" style="width:60px;"><span class="fb"></span> der Ausbildung?
         </div>
         <div class="question-row">
-            3. Ich gehe <input type="text" data-ans="für" style="width: 
-50px;"><span class="fb"></span> zwei Jahre nach London.
+            3. Ich gehe <input type="text" data-ans="f&#252;r" style="width:50px;"><span class="fb"></span> zwei Jahre nach London.
         </div>
         <div class="question-row">
-            4. Warst du schon in England? — Ja, <input type="text" 
-data-ans="vor" style="width: 50px;"><span class="fb"></span> fünf Jahren.
+            4. Warst du schon in England? &#8212; Ja, <input type="text" data-ans="vor" style="width:50px;"><span class="fb"></span> f&#252;nf Jahren.
         </div>
         <div class="question-row">
-            5. <input type="text" data-ans="vor" style="width: 
-50px;"><span class="fb"></span> sechs Monaten habe ich gut Englisch 
-gesprochen.
+            5. <input type="text" data-ans="vor" style="width:50px;"><span class="fb"></span> sechs Monaten habe ich gut Englisch gesprochen.
         </div>
     </div>
 
+    <!-- EJERCICIO 4 -->
     <div class="card">
         <h2>4. Grammatik</h2>
         <span class="instruction">Kreuzen Sie an: Was ist richtig?</span>
@@ -275,252 +263,274 @@ gesprochen.
         <div class="question-row">
             a) Die U-Bahn kommt in ... Minute.
             <div class="mc-options">
-                <label class="mc-label"><input type="radio" name="q4a" 
-value="einer"> einer</label>
-                <label class="mc-label"><input type="radio" name="q4a" 
-value="einen"> einen</label>
-                <label class="mc-label"><input type="radio" name="q4a" 
-value="einem"> einem</label>
+                <label class="mc-label"><input type="radio" name="q4a" value="einer"> einer</label>
+                <label class="mc-label"><input type="radio" name="q4a" value="einen"> einen</label>
+                <label class="mc-label"><input type="radio" name="q4a" value="einem"> einem</label>
             </div>
             <span class="feedback-icon" id="fb-q4a"></span>
         </div>
         <div class="question-row">
-            b) Nach ... Deutschkurs fährt Isabella.
+            b) Nach ... Deutschkurs f&#228;hrt Isabella.
             <div class="mc-options">
-                <label class="mc-label"><input type="radio" name="q4b" 
-value="das"> das</label>
-                <label class="mc-label"><input type="radio" name="q4b" 
-value="der"> der</label>
-                <label class="mc-label"><input type="radio" name="q4b" 
-value="dem"> dem</label>
+                <label class="mc-label"><input type="radio" name="q4b" value="das"> das</label>
+                <label class="mc-label"><input type="radio" name="q4b" value="der"> der</label>
+                <label class="mc-label"><input type="radio" name="q4b" value="dem"> dem</label>
             </div>
             <span class="feedback-icon" id="fb-q4b"></span>
         </div>
         <div class="question-row">
             c) Yakub ist vor ... Jahr gekommen.
             <div class="mc-options">
-                <label class="mc-label"><input type="radio" name="q4c" 
-value="einer"> einer</label>
-                <label class="mc-label"><input type="radio" name="q4c" 
-value="einen"> einen</label>
-                <label class="mc-label"><input type="radio" name="q4c" 
-value="einem"> einem</label>
+                <label class="mc-label"><input type="radio" name="q4c" value="einer"> einer</label>
+                <label class="mc-label"><input type="radio" name="q4c" value="einen"> einen</label>
+                <label class="mc-label"><input type="radio" name="q4c" value="einem"> einem</label>
             </div>
             <span class="feedback-icon" id="fb-q4c"></span>
         </div>
         <div class="question-row">
-            d) Sie braucht das Auto nur für ... Tag.
+            d) Sie braucht das Auto nur f&#252;r ... Tag.
             <div class="mc-options">
-                <label class="mc-label"><input type="radio" name="q4d" 
-value="ein"> ein</label>
-                <label class="mc-label"><input type="radio" name="q4d" 
-value="einen"> einen</label>
-                <label class="mc-label"><input type="radio" name="q4d" 
-value="eine"> eine</label>
+                <label class="mc-label"><input type="radio" name="q4d" value="ein"> ein</label>
+                <label class="mc-label"><input type="radio" name="q4d" value="einen"> einen</label>
+                <label class="mc-label"><input type="radio" name="q4d" value="eine"> eine</label>
             </div>
             <span class="feedback-icon" id="fb-q4d"></span>
         </div>
     </div>
 
+    <!-- EJERCICIO 5 -->
     <div class="card">
         <h2>5. Kommunikation</h2>
         <div class="word-bank">
-            Das ist | Was kann | Es gibt | Ich kümmere | Das tut
+            Das ist | Was kann | Es gibt | Ich k&#252;mmere | Das tut
         </div>
-        <span class="instruction">Ergänzen Sie das Gespräch.</span>
+        <span class="instruction">Erg&#228;nzen Sie das Gespr&#228;ch.</span>
 
         <div class="question-row">
-            Rezeption: Ja gern. (1) <input type="text" data-ans="was 
-kann"><span class="fb"></span> ich für Sie tun?
+            Rezeption: Ja gern. (1) <input type="text" data-ans="was kann"><span class="fb"></span> ich f&#252;r Sie tun?
         </div>
         <div class="question-row">
-            Gast: (2) <input type="text" data-ans="es gibt"><span 
-class="fb"></span> keine Seife in der Dusche.
+            Gast: (2) <input type="text" data-ans="es gibt"><span class="fb"></span> keine Seife in der Dusche.
         </div>
         <div class="question-row">
-            Rezeption: Wie dumm! (3) <input type="text" data-ans="das 
-tut"><span class="fb"></span> mir leid.
+            Rezeption: Wie dumm! (3) <input type="text" data-ans="das tut"><span class="fb"></span> mir leid.
         </div>
         <div class="question-row">
-            Rezeption: (4) <input type="text" data-ans="ich kümmere"><span 
-class="fb"></span> mich sofort darum.
+            Rezeption: (4) <input type="text" data-ans="ich k&#252;mmere"><span class="fb"></span> mich sofort darum.
         </div>
         <div class="question-row">
-            Gast: (5) <input type="text" data-ans="das ist"><span 
-class="fb"></span> sehr nett.
+            Gast: (5) <input type="text" data-ans="das ist"><span class="fb"></span> sehr nett.
         </div>
     </div>
 
     <div class="actions">
-        <button class="btn-reset" onclick="resetExam()">Neu 
-starten</button>
-        <button class="btn-check" onclick="checkAnswers()">Prüfen 
-(Corregir)</button>
+        <button class="btn-reset" onclick="resetExam()">Neu starten</button>
+        <button class="btn-check" onclick="checkAnswers()">Pr&#252;fen (Corregir)</button>
     </div>
 
-    <script>
-        /* ========== ANTI-TRAMPAS ========== */
-        let focusBreaks = 0;
-        let attemptCount = 0;
-        let userIsInteracting = false;
+<script>
+/* ===================================================
+   ANTI-TRAMPAS - Focus Loss Detection
+   Compatible con GitHub Pages y movil
+   =================================================== */
+var focusBreaks = 0;
+var attemptCount = 0;
+var userIsInteracting = false;
+var interactionTimer = null;
 
-        // Detectar si el usuario está tocando un input (evita falsos 
-positivos en móvil)
-        document.addEventListener("touchstart", function() { 
-userIsInteracting = true; });
-        document.addEventListener("touchend", function() {
-            setTimeout(function() { userIsInteracting = false; }, 500);
-        });
+function setInteracting() {
+    userIsInteracting = true;
+    if (interactionTimer) clearTimeout(interactionTimer);
+    interactionTimer = setTimeout(function() {
+        userIsInteracting = false;
+    }, 800);
+}
 
-        // visibilitychange: se dispara cuando cambia de pestaña o 
-minimiza
-        document.addEventListener("visibilitychange", function() {
-            if (document.hidden && !userIsInteracting) {
-                incrementFocusLoss();
-            }
-        });
+/* Touch events (movil) */
+document.addEventListener("touchstart", setInteracting, {passive: true});
+document.addEventListener("touchend", setInteracting, {passive: true});
 
-        // blur: se dispara al perder foco la ventana
-        window.addEventListener("blur", function() {
-            setTimeout(function() {
-                // Solo contar si realmente salió de la página (no si tocó 
-un input)
-                if (!document.hasFocus() && !userIsInteracting) {
-                    incrementFocusLoss();
-                }
-            }, 300);
-        });
+/* Mouse events (desktop) */
+document.addEventListener("mousedown", setInteracting);
+document.addEventListener("mouseup", setInteracting);
 
-        function incrementFocusLoss() {
-            focusBreaks++;
-            var el = document.getElementById('focus-count');
-            el.innerText = focusBreaks;
-            el.parentElement.style.backgroundColor = "#ffcccc";
+/* Focus en inputs tambien cuenta como interaccion */
+document.addEventListener("focusin", setInteracting);
+
+/* DETECCION REAL: solo visibilitychange es confiable cross-browser */
+document.addEventListener("visibilitychange", function() {
+    if (document.hidden) {
+        incrementFocusLoss();
+    }
+});
+
+function incrementFocusLoss() {
+    focusBreaks++;
+    var el = document.getElementById("focus-count");
+    if (el) {
+        el.innerText = String(focusBreaks);
+        el.parentElement.style.backgroundColor = "#ffcccc";
+    }
+}
+
+/* ===================================================
+   NORMALIZACION DE TEXTO
+   =================================================== */
+function normalize(str) {
+    if (!str) return "";
+    var s = str.trim().toLowerCase();
+    s = s.replace(/[.,;:?!\u0022\u0027\u0060\u00B4\u2018\u2019\u201C\u201D]/g, "");
+    s = s.replace(/\s+/g, " ");
+    return s;
+}
+
+function answersMatch(userStr, correctStr) {
+    var u = normalize(userStr);
+    var c = normalize(correctStr);
+    if (u === c) return true;
+    /* Aceptar "ue" por u-umlaut, "ae" por a-umlaut, "oe" por o-umlaut, "ss" por eszett */
+    function expandUmlauts(s) {
+        return s.replace(/\u00FC/g, "ue").replace(/\u00E4/g, "ae").replace(/\u00F6/g, "oe").replace(/\u00DF/g, "ss");
+    }
+    if (expandUmlauts(u) === expandUmlauts(c)) return true;
+    return false;
+}
+
+/* ===================================================
+   BUSCAR SPAN .fb DESPUES DEL INPUT
+   =================================================== */
+function findFb(input) {
+    var node = input.nextElementSibling;
+    var limit = 3;
+    while (node && limit > 0) {
+        if (node.classList && node.classList.contains("fb")) return node;
+        node = node.nextElementSibling;
+        limit--;
+    }
+    return null;
+}
+
+/* ===================================================
+   RESPUESTAS MULTIPLE CHOICE
+   =================================================== */
+var mcAnswers = {
+    "q4a": "einer",
+    "q4b": "dem",
+    "q4c": "einem",
+    "q4d": "einen"
+};
+
+/* ===================================================
+   CORREGIR
+   =================================================== */
+function checkAnswers() {
+    var correctCount = 0;
+    var totalCount = 0;
+
+    /* --- TEXT INPUTS --- */
+    var textInputs = document.querySelectorAll("input[type='text']");
+    for (var i = 0; i < textInputs.length; i++) {
+        var input = textInputs[i];
+        totalCount++;
+
+        var userVal = input.value;
+        var correctVal = input.getAttribute("data-ans") || "";
+
+        var fbSpan = findFb(input);
+
+        /* Reset */
+        input.classList.remove("correct", "incorrect");
+        if (fbSpan) {
+            fbSpan.className = "fb";
+            fbSpan.innerHTML = "";
         }
 
-        /* ========== NORMALIZAR TEXTO ========== */
-        function normalize(str) {
-            return str.trim().toLowerCase().replace(/[.,?!;:"""''´`]/g, 
-"").replace(/\s+/g, " ");
+        var trimmed = normalize(userVal);
+
+        if (trimmed !== "" && answersMatch(userVal, correctVal)) {
+            input.classList.add("correct");
+            if (fbSpan) {
+                fbSpan.classList.add("ok");
+                fbSpan.innerHTML = " &#10003;";
+            }
+            correctCount++;
+        } else if (trimmed !== "") {
+            input.classList.add("incorrect");
+            if (fbSpan) {
+                fbSpan.classList.add("no");
+                fbSpan.innerHTML = " &#10007;";
+            }
+        }
+    }
+
+    /* --- RADIO BUTTONS --- */
+    for (var group in mcAnswers) {
+        if (!mcAnswers.hasOwnProperty(group)) continue;
+        totalCount++;
+        var selected = document.querySelector("input[name='" + group + "']:checked");
+        var fbEl = document.getElementById("fb-" + group);
+
+        if (fbEl) {
+            fbEl.className = "feedback-icon";
+            fbEl.innerHTML = "";
         }
 
-        /* ========== RESPUESTAS MC ========== */
-        var mcAnswers = {
-            'q4a': 'einer',
-            'q4b': 'dem',
-            'q4c': 'einem',
-            'q4d': 'einen'
-        };
-
-        /* ========== CORREGIR ========== */
-        function checkAnswers() {
-            var correctCount = 0;
-            var totalCount = 0;
-
-            // --- TEXT INPUTS ---
-            var textInputs = 
-document.querySelectorAll('input[type="text"]');
-            for (var i = 0; i < textInputs.length; i++) {
-                var input = textInputs[i];
-                totalCount++;
-
-                var userVal = normalize(input.value);
-                var correctVal = 
-normalize(input.getAttribute("data-ans"));
-
-                // El span .fb que está justo después del input
-                var fbSpan = input.nextElementSibling;
-
-                // Reset
-                input.classList.remove('correct', 'incorrect');
-                if (fbSpan && fbSpan.classList.contains('fb')) {
-                    fbSpan.className = 'fb feedback-icon';
-                    fbSpan.innerHTML = '';
-                }
-
-                if (userVal === correctVal && userVal !== "") {
-                    input.classList.add('correct');
-                    if (fbSpan) {
-                        fbSpan.classList.add('ok');
-                        fbSpan.innerHTML = " ✓";
-                    }
-                    correctCount++;
-                } else if (userVal !== "") {
-                    input.classList.add('incorrect');
-                    if (fbSpan) {
-                        fbSpan.classList.add('no');
-                        fbSpan.innerHTML = " ✗";
-                    }
-                }
-            }
-
-            // --- RADIO BUTTONS ---
-            for (var group in mcAnswers) {
-                totalCount++;
-                var selected = document.querySelector('input[name="' + 
-group + '"]:checked');
-                var fbEl = document.getElementById('fb-' + group);
-
+        if (selected) {
+            if (selected.value === mcAnswers[group]) {
+                correctCount++;
                 if (fbEl) {
-                    fbEl.className = 'feedback-icon';
-                    fbEl.innerHTML = '';
+                    fbEl.classList.add("ok");
+                    fbEl.innerHTML = " &#10003; Richtig";
                 }
-
-                if (selected) {
-                    if (selected.value === mcAnswers[group]) {
-                        correctCount++;
-                        if (fbEl) {
-                            fbEl.classList.add('ok');
-                            fbEl.innerHTML = " ✓ Richtig";
-                        }
-                    } else {
-                        if (fbEl) {
-                            fbEl.classList.add('no');
-                            fbEl.innerHTML = " ✗ Falsch";
-                        }
-                    }
-                }
-            }
-
-            attemptCount++;
-            document.getElementById('attempt-count').innerText = 
-attemptCount;
-
-            alert("Ergebnis: " + correctCount + " / " + totalCount + " 
-korrekt.");
-        }
-
-        /* ========== REINICIAR ========== */
-        function resetExam() {
-            if (!confirm("Möchten Sie wirklich neu starten?")) return;
-
-            var textInputs = 
-document.querySelectorAll('input[type="text"]');
-            for (var i = 0; i < textInputs.length; i++) {
-                textInputs[i].value = '';
-                textInputs[i].classList.remove('correct', 'incorrect');
-                var fb = textInputs[i].nextElementSibling;
-                if (fb && fb.classList.contains('fb')) {
-                    fb.className = 'fb feedback-icon';
-                    fb.innerHTML = '';
-                }
-            }
-
-            var radios = document.querySelectorAll('input[type="radio"]');
-            for (var j = 0; j < radios.length; j++) {
-                radios[j].checked = false;
-            }
-
-            for (var group in mcAnswers) {
-                var fbEl = document.getElementById('fb-' + group);
+            } else {
                 if (fbEl) {
-                    fbEl.className = 'feedback-icon';
-                    fbEl.innerHTML = '';
+                    fbEl.classList.add("no");
+                    fbEl.innerHTML = " &#10007; Falsch";
                 }
             }
-
-            window.scrollTo(0, 0);
         }
-    </script>
+    }
+
+    attemptCount++;
+    var attemptEl = document.getElementById("attempt-count");
+    if (attemptEl) attemptEl.innerText = String(attemptCount);
+
+    alert("Ergebnis: " + correctCount + " / " + totalCount + " korrekt.");
+}
+
+/* ===================================================
+   REINICIAR
+   =================================================== */
+function resetExam() {
+    if (!confirm("Wirklich neu starten?")) return;
+
+    var textInputs = document.querySelectorAll("input[type='text']");
+    for (var i = 0; i < textInputs.length; i++) {
+        textInputs[i].value = "";
+        textInputs[i].classList.remove("correct", "incorrect");
+        var fb = findFb(textInputs[i]);
+        if (fb) {
+            fb.className = "fb";
+            fb.innerHTML = "";
+        }
+    }
+
+    var radios = document.querySelectorAll("input[type='radio']");
+    for (var j = 0; j < radios.length; j++) {
+        radios[j].checked = false;
+    }
+
+    for (var group in mcAnswers) {
+        if (!mcAnswers.hasOwnProperty(group)) continue;
+        var fbEl = document.getElementById("fb-" + group);
+        if (fbEl) {
+            fbEl.className = "feedback-icon";
+            fbEl.innerHTML = "";
+        }
+    }
+
+    window.scrollTo(0, 0);
+}
+</script>
 </body>
 </html>
